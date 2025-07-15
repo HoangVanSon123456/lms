@@ -1,6 +1,7 @@
 package com.example.lms.service.impl;
 
 import com.example.lms.dto.request.UserCreationRequest;
+import com.example.lms.dto.request.UserUpdateRequest;
 import com.example.lms.dto.response.UserResponse;
 import com.example.lms.entity.User;
 import com.example.lms.repository.UserRepository;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService  {
 
     @Override
     public UserResponse register(UserCreationRequest request) {
+        //Check email đã tồn tại
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -28,6 +30,22 @@ public class UserServiceImpl implements UserService  {
                 .build();
 
         user = userRepository.save(user);
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .avatarUrl(user.getAvatarUrl())
+                .build();
+    }
+
+    @Override
+    public UserResponse updateProfiles(Integer userId, UserUpdateRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        user.setFullName(request.getFullName());
+        user.setAvatarUrl(request.getAvatarUrl());
+        userRepository.save(user);
 
         return UserResponse.builder()
                 .id(user.getId())
