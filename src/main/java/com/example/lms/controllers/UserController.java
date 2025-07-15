@@ -19,10 +19,15 @@ public class UserController {
 
     UserService userService;
 
+//    @PostMapping("/register")
+//    BaseResponse<UserResponse> register(@RequestBody UserCreationRequest request) {
+//        UserResponse userResponse = userService.register(request);
+//        return BaseResponse.of("Registration successful", userResponse);
+//    }
+
     @PostMapping("/register")
-    BaseResponse<UserResponse> register(@RequestBody UserCreationRequest request) {
-        UserResponse userResponse = userService.register(request);
-        return BaseResponse.of("Registration successful", userResponse);
+    public String register() {
+        return "OK";
     }
 
     @PutMapping("/profiles")
