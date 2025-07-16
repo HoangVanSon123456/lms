@@ -29,6 +29,4 @@ public class UserRole {
     @MapsId("roleId")
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     private Role role;
-
-
 }

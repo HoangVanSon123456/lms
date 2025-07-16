@@ -50,6 +50,8 @@ public class AuthenticationService {
         UserRole userRole = UserRole.builder()
                 .userId(user.getId())
                 .roleId(role.getId())
+                .user(user)
+                .role(role)
                 .build();
 
         userRoleRepository.save(userRole);
@@ -63,7 +65,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse login(AuthenticationRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByEmailWithRoles(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

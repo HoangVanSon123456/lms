@@ -27,15 +27,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE , makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfiguration {
 
-//    AuthenticationProvider authenticationProvider;
     JwtService jwtService;
     UserRepository userRepository;
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/api/auth/**"
+            "/api/auth/**", "/api/auth/register", "/api/auth/login"
     };
 
     @Bean
@@ -67,11 +66,6 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider);
         return http.build();
     }
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
