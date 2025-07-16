@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.security.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -43,6 +44,9 @@ public class User {
 
     @Column(name = "update_at")
     private Timestamp updateAt;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<UserRole> userRoles;
 }
 
 

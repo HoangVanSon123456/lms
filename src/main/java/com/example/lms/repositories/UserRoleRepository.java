@@ -1,4 +1,4 @@
-package com.example.lms.repository;
+package com.example.lms.repositories;
 
 import com.example.lms.entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
